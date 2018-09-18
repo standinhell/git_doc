@@ -162,3 +162,13 @@ git reset --mixed：此为默认方式，不带任何参数的git reset，就是
 git reset --soft：回退到某个版本，只回退了history的信息
 git reset  --hard：彻底回退到对应版本，三个区中的信息全部回退，慎用
 
+git reset HEAD~0 最近一个提交
+
+git reset HEAD~1 上一次提交
+
+git reset HEAD~2 上一次的 上一次的提交（倒数第三次）
+
+git reset HEAD~3 倒数 第四次的 提交
+
+git reset commitId 回退到指定版本
+
