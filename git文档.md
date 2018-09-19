@@ -116,6 +116,48 @@ message3
 
 如果当前分支与远程分支存在追踪关系，则本地分支与远程分支都可以省略
 
+第一次Push  如果clone项目用的是http或https的形式，会要求输入gitlab的用户名和密码
+
+如果是ssh形式，会提示如下内容：
+
+> git@gitlab.example.com: Permission denied (publickey).
+> fatal: Could not read from remote repository.
+>
+> Please make sure you have the correct access rights
+> and the repository exists.
+
+需要在本地生成公匙，配置到gitlab上
+
+打开git bash，输入 ssh-keygen
+
+> Generating public/private rsa key pair.
+> Enter file in which to save the key (/c/Users/zsq/.ssh/id_rsa):
+
+输入要保存公匙的位置
+
+> Enter passphrase (empty for no passphrase):
+
+输入密码，该密码是你本地的密码，一般为空，之后再确认一次
+
+> The key fingerprint is:
+> SHA256:+ZevZ8FndDt3MLiz57DoFN/i15AD5SJTS2jsc8TkDBg zsq@DESKTOP-D3T7UCH
+> The key's randomart image is:
+> +---[RSA 2048]----+
+> |        E+.+.    |
+> |        . ++= .  |
+> |         o +o=   |
+> |         .= * + o|
+> |        S .= = =o|
+> |         . ooo*o=|
+> |          o *o.B+|
+> |         . +.== .|
+> |         .o +Bo  |
+> +----[SHA256]-----+
+
+生成成功，到你生成目录下，找到一对以 `id_dsa` 或 `id_rsa` 命名的文件，其中带有`.pub`扩展名的是公匙，另一个是私匙，用记事本等工具打开`id_rsa.pub`，打开gitlab，右上角个人头像，settings，左侧导航栏SSH Keys，将`id_rsa.pub`中全部内容复制到Key中，title可以给这个公匙起个名字，点击Add key添加成功，之后就可以正常push了。
+
+
+
 
 
 #### git log
@@ -219,4 +261,12 @@ checkout命令用于从历史提交（或者暂存区域）中拷贝文件到工
 #### git merge
 
 - git merge dev：将dev分支合并到当前分支
+
   - 如果另一个分支是当前提交的祖父节点，那么合并命令将什么也不做。 另一种情况是如果当前提交是另一个分支的祖父节点，就导致*fast-forward*合并。指向只是简单的移动，并生成一个新的提交
+
+  - 否则就是一次真正的合并。默认把当前提交(*ed489* 如下所示)和另一个提交(*33104*)以及他们的共同祖父节点(*b325c*)进行一次三方合并。
+
+    结果是先保存当前目录和索引，然后和父节点*33104*一起做一次新提交。
+
+![270006531338299](C:\Users\zsq\Desktop\git文档\images\270006531338299.jpg)
+
