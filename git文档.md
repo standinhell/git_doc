@@ -1,9 +1,5 @@
 # git文档
 
-http://josh-persistence.iteye.com/blog/2215214
-
-https://www.cnblogs.com/cheneasternsun/p/5952830.html
-
 ![545446-20171223173946084-1909688870](C:\Users\zsq\Desktop\git文档\images\545446-20171223173946084-1909688870.gif)
 
 ### git基础及命令行使用
