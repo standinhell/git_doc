@@ -162,3 +162,61 @@ git reset --mixed：此为默认方式，不带任何参数的git reset，就是
 git reset --soft：回退到某个版本，只回退了history的信息
 git reset  --hard：彻底回退到对应版本，三个区中的信息全部回退，慎用
 
+git reset HEAD~0 最近一个提交
+
+git reset HEAD~1 上一次提交
+
+git reset HEAD~2 上一次的 上一次的提交（倒数第三次）
+
+git reset HEAD~3 倒数 第四次的 提交
+
+git reset commitId 回退到指定版本
+
+> git commit --amend 
+>
+> 等价于
+>
+> git reset HEAD~1 --soft ;   git commit
+
+#### git branch
+
+一般用于分支的操作，比如创建分支，查看分支等等，
+
+- git branch：不带参数：列出本地已经存在的分支，并且在当前分支的前面用"*"标记
+
+- git branch -r：查看远程版本库分支列表
+
+- git branch -a：查看所有分支列表，包括本地和远程
+
+- git branch dev：创建名为dev的分支，创建分支时需要是最新的环境，创建分支但依然停留在当前分支
+
+- git branch -d dev：删除dev分支，如果在分支中有一些未merge的提交，那么会删除分支失败，此时可以使用 git branch -D dev：强制删除dev分支，
+
+- git branch -vv：可以查看本地分支对应的远程分支
+
+- git branch -m oldName newName：给分支重命名
+
+#### git checkout
+
+checkout命令用于从历史提交（或者暂存区域）中拷贝文件到工作目录，也可用于切换分支。
+
+**当给定某个文件名**（或者打开-p选项，或者文件名和-p选项同时打开）时，git会从指定的提交中拷贝文件到暂存区域和工作目录。比如，`git checkout HEAD~ foo.c`会将提交节点*HEAD~*(即当前提交节点的父节点)中的`foo.c`复制到工作目录并且加到暂存区域中。（如果命令中没有指定提交节点，则会从暂存区域中拷贝内容。）
+
+注意当前分支不会发生变化(HEAD指向原处)。
+
+![262348217421730](C:\Users\zsq\Desktop\git文档\images\262348217421730.jpg)
+
+**当不指定文件名**，而是给出一个（本地）分支时，那么*HEAD*标识会移动到那个分支（也就是说，我们“切换”到那个分支了），然后暂存区域和工作目录中的内容会和*HEAD*对应的提交节点一致。新提交节点（下图中的a47c3）中的所有文件都会被复制（到暂存区域和工作目录中）；只存在于老的提交节点（ed489）中的文件会被删除；不属于上述两者的文件会被忽略，不受影响。
+
+![262350274921880](C:\Users\zsq\Desktop\git文档\images\262350274921880.jpg)
+
+　　**如果既没有指定文件名，也没有指定分支名**，而是一个标签、远程分支、SHA-1值或者是像*master~3*类似的东西，**就得到一个匿名分支，称作detached HEAD（被分离的HEAD标识）**。这样可以很方便地在历史版本之间互相切换。比如说你想要编译1.6.6.1版本的git，你可以运行`git checkout v1.6.6.1`（这是一个标签，而非分支名），编译，安装，然后切换回另一个分支，比如说`git checkout master`。然而，当提交操作涉及到“分离的HEAD”时，其行为会略有不同。
+
+![262354500707332](C:\Users\zsq\Desktop\git文档\images\262354500707332.jpg)
+
+
+
+#### git merge
+
+- git merge dev：将dev分支合并到当前分支
+  - 如果另一个分支是当前提交的祖父节点，那么合并命令将什么也不做。 另一种情况是如果当前提交是另一个分支的祖父节点，就导致*fast-forward*合并。指向只是简单的移动，并生成一个新的提交
