@@ -270,3 +270,10 @@ checkout命令用于从历史提交（或者暂存区域）中拷贝文件到工
 
 ![270006531338299](C:\Users\zsq\Desktop\git文档\images\270006531338299.jpg)
 
+#### git remote
+
+- git remote -v：查看现有仓库的远端仓库
+- git remote add 远端仓库地址别名 <url>：添加一个新的仓库地址
+- git remote rm origin：删除名为origin的远端仓库
+- git remote rename orign1 origin2：重命名
+
